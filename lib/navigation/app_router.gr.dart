@@ -15,33 +15,19 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    GosuslugiWebViewRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const GosuslugiWebViewPage(),
-      );
-    },
     MainWebViewRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const MainWebViewPage(),
       );
     },
+    SplashRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SplashPage(),
+      );
+    },
   };
-}
-
-/// generated route for
-/// [GosuslugiWebViewPage]
-class GosuslugiWebViewRoute extends PageRouteInfo<void> {
-  const GosuslugiWebViewRoute({List<PageRouteInfo>? children})
-      : super(
-          GosuslugiWebViewRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'GosuslugiWebViewRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -54,6 +40,20 @@ class MainWebViewRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MainWebViewRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SplashPage]
+class SplashRoute extends PageRouteInfo<void> {
+  const SplashRoute({List<PageRouteInfo>? children})
+      : super(
+          SplashRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SplashRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
