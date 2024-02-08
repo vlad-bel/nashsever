@@ -14,7 +14,7 @@ class SplashPageCubit extends Cubit<SplashPageState> {
   final AppRouter _appRouter;
 
   Future splashScreenInit() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(milliseconds: 1500));
     _appRouter.replace(const MainWebViewRoute());
   }
 }

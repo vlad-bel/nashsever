@@ -46,21 +46,23 @@ class _MainWebViewPageState extends State<MainWebViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: InAppWebView(
-              key: webViewKey,
-              initialUrlRequest: URLRequest(
-                url: Uri.parse('https://nashsever51.ru/'),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: InAppWebView(
+                key: webViewKey,
+                initialUrlRequest: URLRequest(
+                  url: Uri.parse('https://nashsever51.ru/'),
+                ),
+                initialOptions: options,
+                onWebViewCreated: (controller) {
+                  webViewController = controller;
+                },
               ),
-              initialOptions: options,
-              onWebViewCreated: (controller) {
-                webViewController = controller;
-              },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
