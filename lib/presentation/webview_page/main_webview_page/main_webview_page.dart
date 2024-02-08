@@ -41,23 +41,29 @@ class _MainWebViewPageState extends State<MainWebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: InAppWebView(
-          key: webViewKey,
-          // initialUrlRequest:
-          // URLRequest(url: WebUri("https://inappwebview.dev/")),
-          initialOptions: InAppWebViewGroupOptions(
-            android: AndroidInAppWebViewOptions(
-              useHybridComposition: true,
-              // hardwareAcceleration: false,
+        child: Column(
+          children: [
+            Expanded(
+              child: InAppWebView(
+                key: webViewKey,
+                // initialUrlRequest:
+                // URLRequest(url: WebUri("https://inappwebview.dev/")),
+                initialOptions: InAppWebViewGroupOptions(
+                  android: AndroidInAppWebViewOptions(
+                    useHybridComposition: true,
+                    // hardwareAcceleration: false,
 
-            )
-          ),
-          initialUrlRequest: URLRequest(
-            url: Uri.parse('https://nashsever51.ru/'),
-          ),
-          onWebViewCreated: (controller) {
-            webViewController = controller;
-          },
+                  )
+                ),
+                initialUrlRequest: URLRequest(
+                  url: Uri.parse('https://nashsever51.ru/'),
+                ),
+                onWebViewCreated: (controller) {
+                  webViewController = controller;
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
