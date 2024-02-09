@@ -18,10 +18,6 @@ class _MainWebViewPageState extends State<MainWebViewPage> {
 
   InAppWebViewController? webViewController;
 
-  final controller = WebViewController()
-  ..setJavaScriptMode(JavaScriptMode.unrestricted)
-  ..loadRequest(Uri.parse('https://nashsever51.ru/'));
-
   @override
   void initState() {
     super.initState();
@@ -30,41 +26,37 @@ class _MainWebViewPageState extends State<MainWebViewPage> {
 
   void initCookies() async {
     final cookieManager = CookieManager.instance();
-    // cookieManager.setCookie(
-    //   url: Uri.parse("https://nashsever51.ru/"),
-    //   name: "nsmapp",
-    //   value: "1",
-    // );
+    cookieManager.setCookie(
+      url: Uri.parse("https://nashsever51.ru/"),
+      name: "nsmapp",
+      value: "1",
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: InAppWebView(
-                key: webViewKey,
-                // initialUrlRequest:
-                // URLRequest(url: WebUri("https://inappwebview.dev/")),
-                initialOptions: InAppWebViewGroupOptions(
-                  android: AndroidInAppWebViewOptions(
-                    useHybridComposition: true,
-                    // hardwareAcceleration: false,
+      body: Column(
+        children: [
+          Expanded(
+            child: InAppWebView(
+              key: webViewKey,
+              initialOptions: InAppWebViewGroupOptions(
+                android: AndroidInAppWebViewOptions(
+                  useHybridComposition: true,
+                  // hardwareAcceleration: false,
 
-                  )
-                ),
-                initialUrlRequest: URLRequest(
-                  url: Uri.parse('https://nashsever51.ru/'),
-                ),
-                onWebViewCreated: (controller) {
-                  webViewController = controller;
-                },
+                )
               ),
+              initialUrlRequest: URLRequest(
+                url: Uri.parse('https://nashsever51.ru/'),
+              ),
+              onWebViewCreated: (controller) {
+                webViewController = controller;
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
