@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 @RoutePage()
 class MainWebViewPage extends StatefulWidget {
@@ -16,17 +17,6 @@ class _MainWebViewPageState extends State<MainWebViewPage> {
   final GlobalKey webViewKey = GlobalKey();
 
   InAppWebViewController? webViewController;
-
-  final options = InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-      javaScriptCanOpenWindowsAutomatically: true,
-      javaScriptEnabled: true,
-    ),
-    android: AndroidInAppWebViewOptions(supportMultipleWindows: true),
-    ios: IOSInAppWebViewOptions(
-      useOnNavigationResponse: true,
-    ),
-  );
 
   @override
   void initState() {
@@ -46,23 +36,27 @@ class _MainWebViewPageState extends State<MainWebViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: InAppWebView(
-                key: webViewKey,
-                initialUrlRequest: URLRequest(
-                  url: Uri.parse('https://nashsever51.ru/'),
-                ),
-                initialOptions: options,
-                onWebViewCreated: (controller) {
-                  webViewController = controller;
-                },
+      body: Column(
+        children: [
+          Expanded(
+            child: InAppWebView(
+              key: webViewKey,
+              initialOptions: InAppWebViewGroupOptions(
+                android: AndroidInAppWebViewOptions(
+                  useHybridComposition: true,
+                  // hardwareAcceleration: false,
+
+                )
               ),
+              initialUrlRequest: URLRequest(
+                url: Uri.parse('https://nashsever51.ru/'),
+              ),
+              onWebViewCreated: (controller) {
+                webViewController = controller;
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
