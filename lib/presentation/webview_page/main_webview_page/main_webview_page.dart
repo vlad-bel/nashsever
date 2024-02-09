@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:nash_sever/navigation/app_router.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 @RoutePage()
@@ -14,32 +14,50 @@ class MainWebViewPage extends StatefulWidget {
 }
 
 class _MainWebViewPageState extends State<MainWebViewPage> {
-  late WebViewController controller;
+  final GlobalKey webViewKey = GlobalKey();
+
+  InAppWebViewController? webViewController;
 
   @override
   void initState() {
     super.initState();
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://esia.gosuslugi.ru')) {
-              context.router.push(const GosuslugiWebViewRoute());
+    initCookies();
+  }
 
-              return NavigationDecision.prevent;
-            }
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse('https://nashsever51.ru/'));
+  void initCookies() async {
+    final cookieManager = CookieManager.instance();
+    cookieManager.setCookie(
+      url: Uri.parse("https://nashsever51.ru/"),
+      name: "nsmapp",
+      value: "1",
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WebViewWidget(controller: controller),
+      body: Column(
+        children: [
+          Expanded(
+            child: InAppWebView(
+              key: webViewKey,
+              initialOptions: InAppWebViewGroupOptions(
+                android: AndroidInAppWebViewOptions(
+                  useHybridComposition: true,
+                  // hardwareAcceleration: false,
+
+                )
+              ),
+              initialUrlRequest: URLRequest(
+                url: Uri.parse('https://nashsever51.ru/'),
+              ),
+              onWebViewCreated: (controller) {
+                webViewController = controller;
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
